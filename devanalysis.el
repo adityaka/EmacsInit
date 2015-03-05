@@ -31,7 +31,7 @@
 		  name-seperator 
 		  buffer-ext))
 
-    (switch-to-buffer-other-frame buffer-name)
+    (switch-to-buffer buffer-name)
   )
   
   (org-mode)
