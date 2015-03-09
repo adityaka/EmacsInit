@@ -1,6 +1,6 @@
 ;; This file Contains the macros to perform dev-analysis templates and log parsing etc 
 
-;;Generate the dev-analysis template 
+
 
 ;; global configuration for the the template 
 (setq new-buffer-name "dev_analysis")
@@ -9,7 +9,7 @@
 (setq buffer-counter 0)
 ;; function to generate the documentation template in org-mode 
 (defun dev-analysis-template()
-  
+  "sets the buffer name and then inserts the template."
   (interactive)
   (setq buffer-counter (+ buffer-counter 1))
   ; Main logic to determine the buffer 
@@ -34,15 +34,30 @@
     (switch-to-buffer buffer-name)
   )
   
-  (org-mode)
-  (insert "* SUMMARY\n\n\n")
-  (org-clock-in)
-  (insert "* DEV-ANALYSIS RECOMMENDATIONS\n\n")
-  (insert "* DETAILED ANALYSIS\n\n\n")
-  (insert "** <INTERNAL>\n\n")
-  (insert "** </INTERNAL>\n\n")
-  
+  (insert-dev-template)
 )
+
+
+(defun insert-dev-template ()
+  "Inserts the dev-analysis template"
+  (interactive)
+  (org-mode)
+  (org-insert-export-options-template)
+  (insert "* SUMMARY\n\n")
+  (org-clock-in)
+  (setq summary-pos (point))
+  (insert "\n\n")
+  (insert "* DEV-ANALYSIS RECOMMENDATIONS\n\n")
+  (insert "* DETAILED ANALYSIS\n\n")
+  (insert "#+BEGIN_VERSE\n\n")
+  (insert "<CITRIX INTERNAL>\n\n")
+  (insert "</CITRIX INTERNAL>\n\n")
+  (insert "#+END_VERSE")
+  (goto-char summary-pos)
+)
+
+
+
 
 
 
